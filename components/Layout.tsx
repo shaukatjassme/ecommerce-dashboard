@@ -1,5 +1,23 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography,ListItemSecondaryAction, Container, CssBaseline, Drawer, List, ListItem, ListItemText, IconButton, Divider, TextField, InputAdornment, Avatar, Collapse, ListItemIcon } from '@mui/material';
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    ListItemSecondaryAction,
+    Container,
+    CssBaseline,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+    IconButton,
+    Divider,
+    TextField,
+    InputAdornment,
+    Avatar,
+    Collapse,
+    ListItemIcon,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -10,41 +28,32 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ProductsIcon from '@mui/icons-material/Store';
 import ProfileIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
 import CategoryIcon from '@mui/icons-material/Category';
-import Logo from '../public/images/logo.png'; // Update with the path to your logo image
-import ProfileImg from '../public/images/jassme-profile.jpg'; // Update with the path to your profile image
+import Image from 'next/image';
 import Link from 'next/link';
+import Logo from '../public/images/logo.png';
+import ProfileImg from '../public/images/jassme-profile.jpg';
 
 const drawerWidth = 240;
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    const logoSrc = Logo.src;
-    const profileImgSrc = ProfileImg.src;
     const [open, setOpen] = React.useState(true);
-
-    const handleDrawerToggle = () => {
-        setOpen(!open);
-    };
-
     const [homeOpen, setHomeOpen] = React.useState(false);
     const [deshOpen, setDeshOpen] = React.useState(false);
     const [proOpen, setProOpen] = React.useState(false);
     const [cateOpen, setCateOpen] = React.useState(false);
 
-    const handleHomeClick = () => {
-        setHomeOpen(!homeOpen);
-    };
-    const handleDeshboardClick = () => {
-        setDeshOpen(!deshOpen);
-    };
-    const handleProductsClick = () => {
-        setProOpen(!proOpen);
+    const handleDrawerToggle = () => {
+        setOpen(!open);
     };
 
-    const handleCategoryClick = () => {
-        setCateOpen(!cateOpen);
-    };
+    const handleHomeClick = () => setHomeOpen(!homeOpen);
+    const handleDeshboardClick = () => setDeshOpen(!deshOpen);
+    const handleProductsClick = () => setProOpen(!proOpen);
+    const handleCategoryClick = () => setCateOpen(!cateOpen);
+
+    const ProImg=ProfileImg.src;
+
     return (
         <div style={{ display: 'flex' }}>
             <CssBaseline />
@@ -65,19 +74,21 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             >
                 <div style={{ padding: 16, textAlign: 'center' }}>
                     <Link href="/" passHref>
-                        <img src={logoSrc} alt="Logo" style={{ width: '100px', marginBottom: 16 }} />
+                        <Image src={Logo} alt="Logo" width={100} height={100} />
                     </Link>
                 </div>
                 <Divider />
                 <List>
-                <ListItem button>
-                        <ListItemIcon><DashboardIcon /></ListItemIcon>
-                        
-                            <ListItemText primary="Deshboard" />
-                       
+                    <ListItem button>
+                        <ListItemIcon>
+                            <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Dashboard" />
                     </ListItem>
                     <ListItem button onClick={handleHomeClick}>
-                        <ListItemIcon><HomeIcon /></ListItemIcon>
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
                         <Link href="/" passHref>
                             <ListItemText primary="Home" />
                         </Link>
@@ -91,7 +102,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         <List component="div" disablePadding>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/home/page1" passHref>
                                     <ListItemText primary="Page1" />
@@ -99,7 +118,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             </ListItem>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/home/page2" passHref>
                                     <ListItemText primary="Page2" />
@@ -108,10 +135,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </List>
                     </Collapse>
 
-                 
-
                     <ListItem button onClick={handleProductsClick}>
-                        <ListItemIcon><ProductsIcon /></ListItemIcon>
+                        <ListItemIcon>
+                            <ProductsIcon />
+                        </ListItemIcon>
                         <Link href="/products" passHref>
                             <ListItemText primary="Products" />
                         </Link>
@@ -125,7 +152,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         <List component="div" disablePadding>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/products/productList" passHref>
                                     <ListItemText primary="Product List" />
@@ -133,7 +168,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             </ListItem>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/products/productCreate" passHref>
                                     <ListItemText primary="Create Product" />
@@ -141,7 +184,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             </ListItem>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/products/productReview" passHref>
                                     <ListItemText primary="Product Reviews" />
@@ -150,7 +201,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </List>
                     </Collapse>
                     <ListItem button onClick={handleDeshboardClick}>
-                        <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
+                        <ListItemIcon>
+                            <ShoppingCartIcon />
+                        </ListItemIcon>
                         <Link href="/brands" passHref>
                             <ListItemText primary="Brands" />
                         </Link>
@@ -164,7 +217,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         <List component="div" disablePadding>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/brands/page1" passHref>
                                     <ListItemText primary="Page1" />
@@ -172,7 +233,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             </ListItem>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/brands/page2" passHref>
                                     <ListItemText primary="Page2" />
@@ -181,7 +250,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </List>
                     </Collapse>
                     <ListItem button onClick={handleCategoryClick}>
-                        <ListItemIcon><CategoryIcon /></ListItemIcon>
+                        <ListItemIcon>
+                            <CategoryIcon />
+                        </ListItemIcon>
                         <Link href="/category" passHref>
                             <ListItemText primary="Category" />
                         </Link>
@@ -195,7 +266,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         <List component="div" disablePadding>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <Link href="/category/page1" passHref>
                                     <ListItemText primary="Page1" />
@@ -203,44 +282,63 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             </ListItem>
                             <ListItem button sx={{ pl: 4 }}>
                                 <ListItemIcon>
-                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#000', marginRight: '8px' }} />
+                                    <div
+                                        style={{
+                                            width: '4px',
+                                            height: '4px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#000',
+                                            marginRight: '8px',
+                                        }}
+                                    />
                                 </ListItemIcon>
-                                <Link href="/home/subpage2" passHref>
+                                <Link href="/category/page2" passHref>
                                     <ListItemText primary="Page2" />
                                 </Link>
                             </ListItem>
                         </List>
                     </Collapse>
-
                     <ListItem button>
-                        <ListItemIcon><ProfileIcon /></ListItemIcon>
-                        <Link href="/profile" passHref>
-                            <ListItemText primary="Profile" />
+                        <ListItemIcon>
+                            <GitHubIcon />
+                        </ListItemIcon>
+                        <Link href="/github" passHref>
+                            <ListItemText primary="Github" />
                         </Link>
                     </ListItem>
-                  
+                </List>
+                <Divider />
+                <List>
+                    <ListItem button>
+                        <Avatar
+                            alt="User Avatar"
+                            src={ProImg}
+                            sx={{ marginRight: 2 }}
+                        />
+                        <Link href="/profile" passHref>
+                            <ListItemText primary="Shaukat Jassme" secondary="jassme786@gmail.com" />
+                        </Link>
+                    </ListItem>
                 </List>
             </Drawer>
-            <div style={{ flexGrow: 1 }}>
-                <AppBar position="fixed" sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
+            <main style={{ flexGrow: 1, padding: 0, backgroundColor: '#f5f5f5' }}>
+                <AppBar position="static" style={{ backgroundColor: '#fdc807' }}>
                     <Toolbar>
                         <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
                             edge="start"
+                            color="inherit"
+                            aria-label="menu"
                             onClick={handleDrawerToggle}
-                            sx={{ mr: 2, display: { sm: 'none' } }}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-                            Dashboard Header
+                        <Typography variant="h6" style={{ flexGrow: 1 }}>
+                            Dashboard Layout
                         </Typography>
                         <TextField
                             variant="outlined"
                             size="small"
                             placeholder="Search..."
-                            sx={{ mr: 2 }}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -248,20 +346,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                                     </InputAdornment>
                                 ),
                             }}
+                            style={{ marginRight: 16 }}
                         />
-                        <IconButton color="inherit" sx={{ mr: 2 }}>
-                            <GitHubIcon />
-                        </IconButton>
-                        <Avatar alt="Profile Image" src={profileImgSrc} />
+                        <Link href="/cart" passHref>
+                            <IconButton color="inherit">
+                                <ShoppingCartIcon />
+                            </IconButton>
+                        </Link>
                     </Toolbar>
                 </AppBar>
-                <main style={{ flexGrow: 1, padding: 24 }}>
-                    <Toolbar />
-                    <Container>
-                        {children}
-                    </Container>
-                </main>
-            </div>
+                <Container>
+                    {children}
+                </Container>
+            </main>
         </div>
     );
 };

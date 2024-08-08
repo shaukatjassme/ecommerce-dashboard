@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import { supabase } from '../../lib/supabaseClient';
+import Image from 'next/image';
 
 const ProductList = () => {
     const [products, setProducts] = useState<any[]>([]);
@@ -17,7 +18,7 @@ const ProductList = () => {
             const { data, error } = await supabase
                 .from('product_list')
                 .select('*');
-            
+
             if (error) {
                 console.error('Error fetching products:', error);
             } else {
@@ -44,13 +45,13 @@ const ProductList = () => {
 
     return (
         <Layout>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" sx={{ mt: 2 }} gutterBottom>
                 Product List
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-                <Button 
-                    variant="contained" 
-                    color="primary" 
+                <Button
+                    variant="contained"
+                    color="primary"
                     onClick={handleAddProductClick}
                 >
                     Add Product
@@ -88,10 +89,12 @@ const ProductList = () => {
                             <TableRow key={product.id}>
                                 <TableCell>
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <img
+                                        <Image
                                             src={product.image_url}
                                             alt={product.name}
-                                            style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 8 }}
+                                            width={40}
+                                            height={40}
+                                            style={{ borderRadius: '50%', marginRight: 8 }}
                                         />
                                         {product.name}
                                     </Box>

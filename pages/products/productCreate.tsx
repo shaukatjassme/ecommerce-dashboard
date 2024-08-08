@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import { TextField, Button, Container, Typography, Grid } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { supabase } from '../../lib/supabaseClient';
 import { useRouter } from 'next/router';
-
 
 const ProductCreate = () => {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [brand, setBrand] = useState('');
-    const [published, setPublished] = useState<dayjs.Dayjs | null>(null);
+    const [published, setPublished] = useState<Dayjs | null>(null);
     const [price, setPrice] = useState<number | string>('');
     const [imageUrl, setImageUrl] = useState('');
     const router = useRouter();
@@ -47,13 +46,12 @@ const ProductCreate = () => {
         }
 
         router.push('/products/productList');
-
     };
 
     return (
         <Layout>
             <Container>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" sx={{ mt: 2 }} gutterBottom>
                     Create Product
                 </Typography>
                 <form onSubmit={handleSubmit}>
@@ -93,7 +91,7 @@ const ProductCreate = () => {
                                 label="Published"
                                 value={published}
                                 onChange={(newValue) => setPublished(newValue)}
-                                renderInput={(params) => <TextField {...params} fullWidth required />}
+                                slotProps={{ textField: { fullWidth: true, required: true } }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>

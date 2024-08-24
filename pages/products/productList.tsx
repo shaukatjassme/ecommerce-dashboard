@@ -1,7 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'; // Import useRouter for navigation
+import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, TextField, InputAdornment, Box, Button } from '@mui/material';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Typography,
+    IconButton,
+    TextField,
+    InputAdornment,
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
@@ -11,7 +30,9 @@ import Image from 'next/image';
 const ProductList = () => {
     const [products, setProducts] = useState<any[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const router = useRouter(); // Initialize useRouter
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+    const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -40,7 +61,38 @@ const ProductList = () => {
     );
 
     const handleAddProductClick = () => {
-        router.push('/products/productCreate'); // Redirect to ProductCreate page
+        router.push('/products/productCreate');
+    };
+
+    const handleEditClick = (productId: number) => {
+        router.push(`/products/${productId}/edit`); // Redirect to the edit page
+    };
+
+    const handleDeleteClick = (productId: number) => {
+        setSelectedProductId(productId);
+        setOpenDeleteDialog(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        if (selectedProductId !== null) {
+            const { error } = await supabase
+                .from('product_list')
+                .delete()
+                .eq('id', selectedProductId);
+
+            if (error) {
+                console.error('Error deleting product:', error);
+            } else {
+                setProducts(products.filter((product) => product.id !== selectedProductId));
+                setOpenDeleteDialog(false);
+                setSelectedProductId(null);
+            }
+        }
+    };
+
+    const handleDeleteCancel = () => {
+        setOpenDeleteDialog(false);
+        setSelectedProductId(null);
     };
 
     return (
@@ -104,10 +156,10 @@ const ProductList = () => {
                                 <TableCell>{product.published}</TableCell>
                                 <TableCell>${product.price}</TableCell>
                                 <TableCell>
-                                    <IconButton color="primary">
+                                    <IconButton color="primary" onClick={() => handleEditClick(product.id)}>
                                         <EditIcon />
                                     </IconButton>
-                                    <IconButton color="secondary">
+                                    <IconButton color="secondary" onClick={() => handleDeleteClick(product.id)}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
@@ -116,6 +168,29 @@ const ProductList = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog
+                open={openDeleteDialog}
+                onClose={handleDeleteCancel}
+                aria-labelledby="delete-dialog-title"
+                aria-describedby="delete-dialog-description"
+            >
+                <DialogTitle id="delete-dialog-title">Delete Product</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="delete-dialog-description">
+                        Are you sure you want to delete this product?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDeleteCancel} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleDeleteConfirm} color="secondary">
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Layout>
     );
 };
